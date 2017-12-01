@@ -31,7 +31,7 @@ public class HttpAuth {
 
     public String toString(HttpParams params,String requestDateTime)
     {
-        System.out.println(HEAD_1+":"+_apiKey+":"+base64Encode(generateSignature(params,_secretKey,requestDateTime)));
+        System.out.println("AuthorizationHeader : "+HEAD_1+":"+_apiKey+":"+base64Encode(generateSignature(params,_secretKey,requestDateTime)));
     	return HEAD_1+":"+_apiKey+":"+base64Encode(generateSignature(params,_secretKey,requestDateTime));
     }
     
