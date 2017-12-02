@@ -1,3 +1,4 @@
 *.so
 *.weights
 __pycache__/
+*.jpg
