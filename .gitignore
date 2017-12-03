@@ -2,3 +2,5 @@
 *.weights
 __pycache__/
 *.jpg
+bin/
+.idea/
