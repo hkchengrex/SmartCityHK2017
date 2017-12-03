@@ -14,10 +14,10 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library" exported="">
-      <library name="gson-2.8.2.jar">
+    <orderEntry type="module-library">
+      <library>
         <CLASSES>
-          <root url="file://C:/Users/fung/Desktop/gson-2.8.2.jar" />
+          <root url="jar://$MODULE_DIR$/../gson-2.8.2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

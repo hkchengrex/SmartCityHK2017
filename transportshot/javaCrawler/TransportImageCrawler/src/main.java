@@ -3,7 +3,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -20,7 +23,7 @@ import types.Shot;
 
 public class main {
 
-	static String filelocation = "C:\\Users\\fung\\Desktop\\h\\";
+	static String filelocation = "~/code/SmartCityHK2017/data/img";
 	static final int INAGE_TO_GET[] = { 14, 63, 65, 82, 88, 102, 124, 143, 154 };
 	static final String API_KEY = "FA2AF4E76D8C03BE";
 	static final String SECRET_KEY = "wnQHQiV1mydfyzEOyAyaoztfeCAIW5iH";
@@ -73,13 +76,24 @@ public class main {
 
 	public static void getSpecificShots(List<Shot> shot, int times) {
 		System.out.println("----Start----(times : " + times + " )");
+
+		try {
+			FileOutputStream signal = new FileOutputStream(filelocation + File.separator + "signal");
+			signal.close();
+			FileOutputStream lock = new FileOutputStream(filelocation + File.separator + "lock");
+			lock.close();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+
+		//Files.write(file, lines, Charset.forName("UTF-8"), StandardOpenOption.APPEND);
 		for (int i = 0; i < shot.size(); i++) {
 			for (int j = 0; j < INAGE_TO_GET.length; j++) {
 				if (i == INAGE_TO_GET[j]) {
 					System.out.println(shot.get(i).getImageLink() + " (ImageId: " + String.valueOf(i) + "-"
-							+ String.valueOf(times) + " )");
+							+ shot.get(i).getAddress() + " )");
 					try {
-						getImage(shot.get(i).getImageLink(), String.valueOf(i) + "-" + String.valueOf(times));
+						getImage(shot.get(i).getImageLink(), String.valueOf(i) + "-" + shot.get(i).getAddress());
 					} catch (IOException e) {
 						System.out.println("Error : " + e.getMessage());
 					}
@@ -87,6 +101,11 @@ public class main {
 			}
 		}
 		System.out.println("----End----");
+		try {
+			Files.deleteIfExists(Paths.get(filelocation + File.separator + "lock"));
+		}catch (Exception e){
+			e.printStackTrace();
+		}
 	}
 
 	// -----------------------------------------------------------------------------------------------------//
@@ -98,7 +117,7 @@ public class main {
 	public static void getImage(String link, String imageName) throws IOException {
 		ModelResponse<BufferedImage> img = new ImageModel().getImage(link);
 		if (img.getResponseBody() != null) {
-			File file = new File(filelocation +"\\"+ imageName + ".jpg");
+			File file = new File(filelocation + File.separator + imageName + ".jpg");
 			ImageIO.write(img.getResponseBody(), "jpg", file);
 		}
 	}
