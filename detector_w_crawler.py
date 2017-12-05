@@ -39,7 +39,7 @@ while(True):
 			os.remove(img_path + 'signal')
 			for img in os.listdir(img_path):
 				print(img)
-				r = dn.detect(net, meta, os.path.join(img_path, img).encode('utf-8'), thresh=.5)
+				r = dn.detect(net, meta, os.path.join(img_path, img).encode('utf-8'), thresh=.5, hier_thresh=.6, nms=.35)
 				print(r)
 				raw = cv2.imread(os.path.join(img_path, img))
 				for item in r:
