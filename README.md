@@ -10,4 +10,4 @@ This is made for a competition “Smart City in Hong Kong” organised by Digita
 
 Might probably work without the last two, but there is no guarantee.
 
-Training data from: https://github.com/JakubSochor/BoxCars
+Training data from: myself
